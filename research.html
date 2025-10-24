@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research — Greg Santangeli</title>
+  <meta name="description" content="Research summary, projects, talks, and publications for Greg Santangeli." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d0e; --fg: #e8eaec; --muted: #a9afb8; --accent: #9ad3ff;
+      --card: #121316; --border: #22242a; --maxw: 1100px;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font-family:Inter,system-ui,sans-serif; line-height:1.6; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; border-radius:12px; }
+
+    /* Header / Nav (shared) */
+    .nav { position:fixed; inset:0 0 auto 0; height:72px; display:flex; align-items:center; justify-content:center; z-index:50; transition:background .3s, box-shadow .3s; background:linear-gradient(to bottom,rgba(0,0,0,.55),rgba(0,0,0,0)); }
+    .nav.scrolled { background:rgba(10,11,13,.9); box-shadow:0 10px 30px rgba(0,0,0,.25); backdrop-filter:blur(6px); }
+    .nav-inner { width:100%; max-width:var(--maxw); padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand .mark { width:34px; height:34px; display:flex; align-items:center; justify-content:center; background:none; }
+    .brand .text { display:flex; flex-direction:column; line-height:1.2; }
+    .brand .text small { display:block; font-size:11px; color:var(--muted); letter-spacing:.2px; margin-top:-2px; }
+    .menu { display:flex; gap:24px; align-items:center; }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:rgba(21,25,34,.6); color:#dfe6ee; border:1px solid #273041; font-weight:600; }
+
+    /* Page layout */
+    main { padding:120px 20px 60px; max-width:var(--maxw); margin:0 auto; }
+    h1 { font-family:"Playfair Display", Georgia, serif; font-size:clamp(32px,4vw,52px); margin:0 0 28px; text-align:center; }
+    h2 { font-family:"Playfair Display", Georgia, serif; font-size:clamp(24px,3vw,36px); margin:0 0 16px; }
+
+    /* Research summary + collage */
+    .summary { display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; margin:40px 0 80px; }
+    .summary-text p { font-size:18px; color:#cdd5df; margin:0 0 16px; }
+    .collage { position:relative; min-height:360px; top:-150px; } /* nudge up */
+    .shot { position:absolute; box-shadow:0 12px 30px rgba(0,0,0,.35); border:1px solid var(--border); background:#0f1115; border-radius:10px; }
+    .shot img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
+    /* overlap positions (right side) *//* Positions for overlapping images */
+.shot.a {
+  right: 0;
+  top: 0;
+  width: 62%;
+  aspect-ratio: 4/3;
+  transform: rotate(-1.2deg);
+}
+
+.shot.b {
+  right: 20%;
+  top: 60%;
+  width: 62%;
+  aspect-ratio: 4/3;
+  transform: rotate(1.2deg);
+}
+
+.shot.c {
+  right: 0;
+  top: 120%;
+  width: 62%;
+  aspect-ratio: 4/3;
+  transform: rotate(-1.2deg);
+}
+
+    @media (max-width:900px){
+      .summary { grid-template-columns:1fr; }
+      .collage { min-height:320px; top:0; } /* reset nudge on mobile */
+      .shot.a{ right:4%; } .shot.b{ right:18%; } .shot.c{ right:30%; }
+    }
+
+    /* Projects */
+    .projects { margin:20px 0 60px; }
+    .projects .kicker { margin:26px 0 10px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-weight:700; font-size:12px; }
+    .proj-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:18px; }
+    .proj { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; }
+    .proj h3 { margin:0 0 4px; font-size:18px; }
+    .meta { color:var(--muted); font-size:13px; margin-bottom:8px; }
+    .proj p { margin:0 0 10px; color:#cdd5df; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .tag { font-size:12px; color:#dfe6ee; border:1px solid var(--border); background:#0f1115; border-radius:999px; padding:4px 8px; }
+    .proj .actions { margin-top:10px; }
+
+    /* Talks */
+    .talks { margin:20px 0 60px; }
+    .talk-year { color:var(--muted); opacity:.8; letter-spacing:.18em; text-transform:uppercase; font-weight:800; font-size:13px; margin:28px 0 12px; }
+    .talk { margin:0 0 26px; }
+    .talk b { font-weight:700; }
+
+    /* Publications */
+    .pubs { margin:20px 0 60px; }
+    .pubs ol { padding-left:18px; }
+    .pubs li { margin:0 0 10px; color:#dfe6ee; }
+    .pubs .venue { color:var(--muted); }
+
+    /* External links */
+    .ctas { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:26px 0 0; }
+    .btn.primary { background:linear-gradient(180deg,#1f2b3f,#0f1725); border-color:#31425f; }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); padding:36px 20px; color:var(--muted); }
+    .foot { max-width:var(--maxw); margin:0 auto; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .social { display:flex; gap:16px; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <span class="mark"><img src="website/icon.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;" /></span>
+        <span class="text">Greg Santangeli<small>Photography • Research</small></span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="/about.html">About</a>
+        <a href="/research.html">Research</a>
+        <a href="/photography.html">Photography</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Research</h1>
+
+    <!-- Research Summary -->
+    <section class="summary">
+      <div class="summary-text">
+        <h2>Research Summary</h2>
+      <p>
+        I am an aquatic molecular ecologist and past graduate of Dalhousie University’s Marine Biology honours program. 
+        My research interests primarily focus on monitoring how significant aquatic species, 
+        specifically salmonids, respond to introduced environmental stressors via molecular 
+        ecology analysis. A heavy focus of my work is the application of environmental DNA and RNA 
+        techniques as a medium to quantify the cumulative health of important marine species populations. 
+      </p>
+      <p>
+        My past experiences have focused both on the development and application of molecular biomonitoring tools, 
+        both of which were primary focuses of my honours research. I also have extensive experience with non-molecular 
+        approaches to study fish populations such as pit tagging, dissection-based analysis, and fish health surveys. 
+        I previously worked as a research technician for the Pacific Salmon Foundation, where I contributed to a wide 
+        variety of research initiatives aimed to monitor and protect wild pacific salmonid populations.
+      </p>
+      <p>
+        Currently, I am doing my MSc under the supervision of Dr. Melania Cristescu at McGill University in 
+        collaboration with DFO Canada and the Huntsman Marine Science Centre. I am working on using 
+        molecular monitoring techniques to track the recent invasion of Didemnum vexillum along the Bay of 
+        Fundy. 
+      </p>
+      </div>
+      <div class="collage" aria-label="Fieldwork photos">
+      <figure class="shot a">
+        <img src="website/research/on_drone.jpg" alt="Field sampling on boat">
+      </figure>
+      <figure class="shot b">
+        <img src="website/research/tagging.jpg" alt="ROV transect in progress">
+      </figure>
+      <figure class="shot c">
+        <img src="website/research/sampling_aug.jpg" alt="Dive gear and samples">
+      </figure>
+    </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" aria-label="Projects">
+      <h2>Projects</h2>
+
+      <div class="kicker">Ongoing</div>
+      <div class="proj-grid">
+        <article class="proj">
+          <h3>Monitoring the Novel Invasion of Didemnum Vexillum in the Bay of Fundy</h3>
+          <div class="meta">McGill University - Huntsman Marine Science Centre - DFO Canada</div>
+          <p>Huntsman Marine Science Centre, in partnership with DFO, McGill University and regional collaborators, is 
+          leading a three-year study on the invasive colonial tunicate Didemnum vexillum (“sea vomit”). 
+          After its novel discovery in the Bay of Fundy, this species poses new risks to local ecosystems 
+          and fisheries. Using SCUBA and ROV surveys, fisher-collected samples, eDNA monitoring, and genetic tools, 
+          the project aims to map its distribution and trace invasion pathways to inform management and prevention efforts.</p>
+          <div class="actions"><a class="btn" href="https://www.huntsmanmarine.ca/marineinvasivespecies">Read More</a></div>
+        </article>
+
+        <article class="proj">
+          <h3>Validation and Implementation of eRNA as an Approach to Monitoring Aquatic Invasive Species</h3>
+          <div class="meta">McGill University</div>
+          <p>This project aims to improve monitoring of invasive marine species by combining environmental RNA (eRNA) and DNA (eDNA) 
+          techniques. Focusing on the colonial tunicate Didemnum vexillum (“sea vomit”) in Atlantic Canada, the research compares molecular 
+          detections with visual survey data to assess how accurately each method reflects the species’ true presence. By evaluating eRNA’s 
+          potential to provide more precise, real-time information than eDNA, the project seeks to advance early detection and management tools for 
+          marine invasions.</p>
+        </article>
+      </div>
+
+      <div class="kicker">Past</div>
+      <div class="proj-grid">
+        <article class="proj">
+          <h3>Understanding Juvenile Chinook Salmon Survival Using Pit Tagging</h3>
+          <div class="meta">Pacific Salmon Foundation - Ha’oom Fisheries Society - DFO Canada</div>
+          <p>In collaboration with Ha’oom Fisheries Society, DFO, and Nuu-chah-nulth Nations, the Pacific Salmon Foundation is investigating why 
+          West Coast Vancouver Island Chinook salmon experience poor early-ocean survival. Using PIT-tag tracking and 
+          genomic “Fit-Chip” analysis, the project links stress and pathogen signals to individual survival outcomes, 
+          guiding recovery efforts for this culturally and ecologically vital species.</p>
+          <div class="actions"><a class="btn" href="https://psf.ca/blog/survival-at-sea/">Read More</a></div>
+        </article>
+        
+        <article class="proj">
+          <h3>Broughton Aquaculture Transition Initiative, Salmon Health and Infection Diseases</h3>
+          <div class="meta">Pacific Salmon Foundation - namgis First Nation - DFO Canada</div>
+          <p></p>
+          <div class="actions"><a class="btn" href="">Read More</a></div>
+        </article>
+        
+        <article class="proj">
+          <h3>Environmental DNA Detection of Atlantic Salmon Via the Use of Novel Nuclear Repeat-Based Primers</h3>
+          <div class="meta">Dalhousie University</div>
+          <p></p>
+          <div class="actions"><a class="btn" href="https://www.bentzenlab.org/research/project-five-97erd">Read More</a></div>
+        </article>
+        
+        <article class="proj">
+          <h3>Atlantic Whitefish Monitoring and Re-population</h3>
+          <div class="meta">Dalhousie University - DFO Canada</div>
+          <p></p>
+          <div class="actions"><a class="btn" href="https://www.dal.ca/news/2022/06/28/atlantic-whitefish-conservation-species-dalhousie.html">Read More</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Talks -->
+    <section class="talks" aria-label="Talks">
+      <h2>Talks</h2>
+
+      <div class="talk-year">Oct 2025</div>
+      <p class="talk">
+      <b>Ecology and Evolution Lectures</b> — 
+      "Beyond eDNA: Exploring eRNA's Potential in Monitoring Didemnum vexillum and Other Invasive Species in Atlantic Canada". 
+      Montreal, Quebec. October 24.
+      </p>
+
+      <div class="talk-year">2023</div>
+      <p class="talk">
+        <b>Lett Symposium</b> — 
+        ““Environmental DNA Detection of Atlantic Salmon Via the Use of Novel Nuclear Repeat-Based Primers”” 
+        Halifax, Nova Scotia. June 20.
+      </p>
+      <p class="talk">
+        <b>Science Atlantic Aquaculture & Fisheries and Biology Conference</b> — 
+        “Environmental DNA Detection of Atlantic Salmon Via the Use of Novel Nuclear Repeat-Based Primers” Saint John, New Brunswick. March 2-6.
+      </p>
+      <p class="talk">
+        <b>Cameron Conference</b> — 
+        “Environmental DNA Detection of Atlantic Salmon Via the Use of Novel Nuclear Repeat-Based Primers” Halifax, Nova Scotia. February 11.
+      </p>
+    </section>
+
+    <!-- Publications -->
+    <section class="pubs" aria-label="Publications">
+      <h2>Publications</h2>
+      <ol>
+        <li><strong>Section in progress</strong></li>
+      </ol>
+    </section>
+
+    <!-- External links / CV -->
+    <section aria-label="External profiles">
+      <div class="ctas">
+        <a class="btn" href="#" target="_blank" rel="noopener">Google Scholar</a>
+        <a class="btn" href="https://www.researchgate.net/profile/Gregory-Santangeli" target="_blank" rel="noopener">ResearchGate</a>
+        <a class="btn" href="assets/CV_Greg_Santangeli.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div>
+        <div style="font-weight:700">© <span id="year"></span> Greg Santangeli</div>
+        <div>Montréal • Québec</div>
+      </div>
+      <nav class="social" aria-label="Social">
+<a href="https://www.instagram.com/gregsantangeli/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9 114.9-51.3 
+    114.9-114.9S287.7 141 224.1 141zm146.4-141H77.5C34.7 0 0 34.7 
+    0 77.5v293C0 477.3 34.7 512 77.5 512h293c42.8 0 
+    77.5-34.7 77.5-77.5v-293C448 34.7 413.3 0 
+    370.5 0zm-35.4 109.1c0 14.9-12 
+    26.9-26.9 26.9h-35.8c-14.9 0-26.9-12-26.9-26.9V73.3c0-14.9 
+    12-26.9 26.9-26.9h35.8c14.9 0 26.9 12 
+    26.9 26.9v35.8z"/>
+  </svg>
+</a>
+<a href="#" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="20" height="20" fill="currentColor">
+    <path d="M244 8L0 256l244 248 244-248L244 8zm0 
+    144c55.2 0 100 44.8 100 100s-44.8 100-100 
+    100-100-44.8-100-100 44.8-100 100-100zm0 
+    356c-71.6 0-136.5-34.9-176-88.6 16.4-53.5 
+    66.2-91.4 124-91.4h104c57.8 0 107.6 
+    37.9 124 91.4C380.5 473.1 315.6 508 244 508z"/>
+  </svg>
+</a>
+<a href="https://www.researchgate.net/profile/Gregory-Santangeli" aria-label="ResearchGate" title="ResearchGate" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M248 8C111 8 0 119.3 0 256s111 248 248 
+    248 248-111.3 248-248S385 8 248 
+    8zm91.8 345.4h-47.4l-47.6-74.2h-33.2v74.2h-42V158.6h93.5c43.1 
+    0 77.9 34.8 77.9 77.9 0 31.1-18.2 
+    58-44.9 70.9l43.7 66zm-62-185.1h-60.2v54.9h60.2c15.2 
+    0 27.5-12.3 27.5-27.5s-12.3-27.4-27.5-27.4z"/>
+  </svg>
+</a>
+<a href="https://www.linkedin.com/in/gregory-santangeli/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M100.28 448H7.4V148.9h92.88zm-46.44-340c-29.5 
+    0-53.5-24-53.5-53.5S24.34 1 53.84 
+    1s53.5 24 53.5 53.5-24 53.5-53.5 
+    53.5zM447.9 448h-92.4V302.4c0-34.7-12.4-58.3-43.4-58.3-23.7 
+    0-37.8 15.9-44 31.3-2.3 5.6-2.9 
+    13.4-2.9 21.3V448h-92.5s1.2-270.4 
+    0-297.1h92.5v42.1c12.3-19 34.4-46.2 
+    83.7-46.2 61.1 0 107.1 39.9 107.1 
+    125.5V448z"/>
+  </svg>
+</a>
+<a href="https://github.com/gregsantangeli" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 
+    3.6-2.9.3-5.2-1.3-5.2-3.6s2.3-3.6 
+    5.2-3.6c2.9-.3 5.2 1.3 5.2 3.6zm-31.1-4.5c-.7 
+    2-3.6 2.9-6.2 2-2.9-.7-4.5-2.9-3.9-4.9.7-2 
+    3.6-2.9 6.2-2 2.9.7 4.5 2.9 3.9 
+    4.9zm44.2-1.7c-2.9.7-5.9-.7-6.5-3.3-.7-2.6 
+    1.3-5.2 4.2-5.9 2.9-.7 5.9.7 6.5 
+    3.3.7 2.6-1.3 5.2-4.2 5.9zM244 
+    8C108 8 0 116.6 0 256c0 110.9 69.8 
+    205.2 167 238.7 12.3 2.3 16.8-5.2 
+    16.8-11.6 0-5.9-.3-25.3-.3-48.1-61 
+    13.2-74-26.2-74-26.2-11.3-28.8-27.4-36.5-27.4-36.5-22.6-15.2 
+    1.6-14.9 1.6-14.9 25.2 1.6 38.5 
+    25.9 38.5 25.9 22.3 38.5 58.5 
+    27.4 72.7 20.8 2.3-16.2 8.7-27.4 
+    15.9-33.6-54.5-6.2-111.9-27.4-111.9-119 
+    0-26.2 9.4-47.5 25.2-64.4-2.6-6.2-11-31.6 
+    2.6-65.8 0 0 20.8-6.5 67.8 
+    24.7 19.8-5.5 41.2-7.8 62.6-7.8 21.4 
+    0 42.8 2.9 62.6 7.8 47-31.3 67.8-24.7 
+    67.8-24.7 13.6 34.2 5.2 59.6 
+    2.6 65.8 15.9 16.9 25.5 38.2 25.5 
+    64.4 0 91.9-57.7 112.7-112.5 
+    118.7 9 7.8 17 22.6 17 
+    45.5 0 33-.3 59.5-.3 67.8 0 
+    6.5 4.5 13.9 17.1 11.6C426.2 461.2 
+    496 366.9 496 256 496 116.6 384 
+    8 244 8z"/>
+  </svg>
+</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => { if(window.scrollY > 12) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+    document.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

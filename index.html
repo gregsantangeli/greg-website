@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greg Santangeli — Photography & Research</title>
+  <meta name="description" content="Wildlife & aquatic photography alongside research in environmental DNA/RNA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d0e;
+      --fg: #e8eaec;
+      --muted: #a9afb8;
+      --accent: #9ad3ff; /* subtle blue accent */
+      --card: #121316;
+      --border: #22242a;
+      --maxw: 1200px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header / Nav */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 50;
+      transition: background 300ms ease, box-shadow 300ms ease;
+      background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+    }
+    .nav.scrolled { background: rgba(10,11,13,.9); box-shadow: 0 10px 30px rgba(0,0,0,.25); backdrop-filter: saturate(1.2) blur(6px); }
+    .nav-inner { width: 100%; max-width: var(--maxw); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.5px; }
+    .brand .mark { background: none; }
+    .brand .text { font-weight: 700; }
+    .brand small { display:block; font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .2px; margin-top:-3px; }
+
+    .nav a { font-weight: 600; }
+    .menu { display:flex; gap: 24px; align-items: center; }
+    .menu a { color: #dfe6ee; opacity: .95; }
+    .menu a:hover { opacity: 1; }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding: 10px 14px; border-radius: 999px; background: rgba(21, 25, 34, 0.6); color: #dfe6ee; border:1px solid #273041; font-weight: 600; }
+    .btn:hover { border-color: #3a4b69; }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100vh; display:grid; place-items:center; overflow: hidden; }
+    .hero-media { position:absolute; inset:0; z-index:-2; }
+    .hero-media img { position:absolute; inset:0; width:100%; height:100%; object-fit: cover; opacity:0; transition: opacity 2000ms ease; filter: saturate(1.1) contrast(1.05) brightness(.95); }
+    .hero-media img.active { opacity:1; }
+    .hero-overlay { position: absolute; inset:0; background: radial-gradient(1200px 600px at 50% 70%, rgba(0,0,0,.0), rgba(0,0,0,.45) 55%, rgba(0,0,0,.75)); z-index:-1; }
+
+    .hero-inner { text-align: center; padding: 120px 24px 64px; max-width: 900px; }
+    .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 12px; }
+    h1 { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: clamp(36px, 6vw, 72px); line-height: 1.05; margin: 12px 0 12px; }
+    .lead { font-size: clamp(16px, 2.2vw, 20px); color: #cdd5df; max-width: 70ch; margin: 0 auto 28px; }
+    .cta { display:flex; gap:12px; justify-content:center; flex-wrap: wrap; }
+    .cta .btn-primary { background: linear-gradient(180deg, #1f2b3f, #0f1725); border-color:#31425f; }
+    .cta .btn-primary:hover { border-color:#4a6aa0; }
+
+    /* Featured Categories */
+    .section { padding: 72px 20px; }
+    .container { max-width: var(--maxw); margin: 0 auto; }
+    .section h2 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(28px, 3.5vw, 42px); margin: 0 0 20px; }
+    .grid { display:grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { position:relative; grid-column: span 6; border-radius: 16px; overflow:hidden; background: var(--card); border: 1px solid var(--border); min-height: 280px; }
+    .card.tall { min-height: 420px; }
+    .card .bg img { position:absolute; inset:0; width:100%; height:100%; object-fit: cover; filter: brightness(.9) contrast(1.05); transition: transform 800ms ease, filter 300ms ease; }
+    .card:hover .bg img { transform: scale(1.03); filter: brightness(.95) contrast(1.1) saturate(1.05); }
+    .card .shade { position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.1)); }
+    .card .label { position:absolute; left:16px; bottom:16px; padding: 10px 14px; border-radius:12px; background: rgba(10,12,15,.65); backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,.08); font-weight:700; }
+    .card .label small { display:block; color: var(--muted); font-weight:600; letter-spacing:.2px; margin-top:4px; }
+
+    @media (max-width: 900px) {
+      .card { grid-column: span 12; }
+    }
+
+    /* Quote strip (optional) */
+    .strip { background: linear-gradient(180deg, #0a0d12, #0a0b10); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .quote { font-family: "Playfair Display", Georgia, serif; font-size: clamp(20px, 2.8vw, 28px); color:#dfe6ee; text-align:center; max-width: 900px; margin: 0 auto; padding: 36px 20px; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 36px 20px; color: var(--muted); }
+    .foot { max-width: var(--maxw); margin: 0 auto; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .social { display:flex; gap:16px; }
+    .social a {padding:8px 10px; background:#0f1115; }
+    
+    /* Research blurb layout */
+    .research-blurb { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    .research-blurb .blurb-text { max-width: 720px; display: grid; justify-items: start; }
+    .research-blurb .blurb-text h2 { margin: 0 0 8px; }
+    .research-blurb .blurb-text p { margin: 0 0 12px; color: #cdd5df; }
+    .research-blurb .blurb-text .btn { justify-self: center; margin-top: 6px; }
+    .research-blurb .blurb-img { display:flex; justify-content:flex-end; }
+    .research-blurb .blurb-img img {
+      width: min(28vw, 510px);
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 900px) {
+      .research-blurb { grid-template-columns: 1fr; text-align: center; }
+      .research-blurb .blurb-text { justify-items: center; }
+      .research-blurb .blurb-img { justify-content: center; }
+      .research-blurb .blurb-img img { width: min(50vw, 280px); }
+    }
+
+  </style>
+</head>
+  <link rel="preload" as="image" href="website/index/otter_family.jpg">
+  <link rel="preload" as="image" href="website/index/aboutbkg.jpg">
+  <link rel="preload" as="image" href="website/index/beavertitle.jpg">
+  <link rel="preload" as="image" href="website/index/UW_sunset.jpg">
+<body>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <span class="mark" aria-hidden="true">
+          <!--<img src="" alt="Logo" style="width:100%; height:100%; border-radius:50%;" />-->
+        </span>
+        <span class="text">Greg Santangeli<small>Photography • Research</small></span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="/about.html">About</a>
+        <a href="/research.html">Research</a>
+        <a href="/photography.html">Photography</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Featured work">
+   <div class="hero-media" id="heroMedia">
+  <!-- Only the first image should have class="active" -->
+    <img src="website/index/otter_family.jpg" alt="Hero image 1" class="active" />
+    <img src="website/index/aboutbkg.jpg" alt="Hero image 2" />
+    <img src="website/index/beavertitle.jpg" alt="Hero image 3" />
+    <img src="website/index/UW_sunset.jpg" alt="Hero image 4" />
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="eyebrow">Marine Biology • Photography</div>
+      <h1>Gregory W. H. Santangeli</h1>
+      <p class="lead">Marine and molecular ecologist specializing in monitoring important aquatics species and documenting wildlife, landscapes & night skies through photography.</p>
+      <div class="cta">
+        <a class="btn" href="/photography.html">View Photography</a>
+        <a class="btn" href="/research.html">Explore Research</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research blurb -->
+  <section class="section">
+    <div class="container research-blurb">
+      <div class="blurb-text">
+        <h2>My Work</h2>
+          <p>My research focuses on environmental DNA and RNA tools to monitor aquatic ecosystems, with an emphasis on monitoring endangered and invasive aquatic species. Through field sampling and molecular analyses, I aim to bridge conservation science and practical management solutions.</p>
+          <a class="btn" href="/research.html">Read more</a>
+      </div>
+    <div class="blurb-img">
+      <img src="website/index/tagging.jpg" alt="Greg in the field conducting research" />
+    </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CATEGORIES / QUICK LINKS -->
+  <section class="section" aria-label="Featured categories">
+    <div class="container">
+      <h2>Photography</h2>
+      <div class="grid">
+        <!-- Astro -->
+        <a class="card tall" href="/photography-astro.html">
+          <span class="bg"><img src="website/index/greg_cocoon_final_wide.jpg" alt="Astrophotography night sky" loading="lazy"></span>
+          <span class="shade" aria-hidden="true"></span>
+          <span class="label">Astro<small>Nightscapes • Deep sky</small></span>
+        </a>
+        <!-- Wildlife -->
+        <a class="card" href="/photography-wildlife.html">
+          <span class="bg"><img src="website/index/owl_close.jpg" alt="Wildlife close-up" loading="lazy"></span>
+          <span class="shade" aria-hidden="true"></span>
+          <span class="label">Wildlife<small>Coastal • Forest</small></span>
+        </a>
+        <!-- Aquatic -->
+        <a class="card" href="/photography-aquatic.html">
+          <span class="bg"><img src="website/index/purple_crab.jpg" alt="Underwater scene" loading="lazy"></span>
+          <span class="shade" aria-hidden="true"></span>
+          <span class="label">Aquatic<small>Marine • Freshwater</small></span>
+        </a>
+        <!-- Landscape -->
+        <a class="card tall" href="/photography-landscape.html">
+          <span class="bg"><img src="website/index/Sydney.jpg" alt="Landscape seascape" loading="lazy"></span>
+          <span class="shade" aria-hidden="true"></span>
+          <span class="label">Landscape<small>Seascapes • Mountains</small></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE / MISSION (optional) -->
+  <section class="strip">
+    <div class="quote">Field biology meets visual storytelling — using environmental DNA & RNA research to inform conservation while revealing the beauty (and fragility) of our natural world.</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div>
+        <div style="font-weight:700">© <span id="year"></span> Greg Santangeli</div>
+        <div>Montréal • Québec</div>
+      </div>
+      <nav class="social" aria-label="Social">
+<a href="https://www.instagram.com/gregsantangeli/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9 114.9-51.3 
+    114.9-114.9S287.7 141 224.1 141zm146.4-141H77.5C34.7 0 0 34.7 
+    0 77.5v293C0 477.3 34.7 512 77.5 512h293c42.8 0 
+    77.5-34.7 77.5-77.5v-293C448 34.7 413.3 0 
+    370.5 0zm-35.4 109.1c0 14.9-12 
+    26.9-26.9 26.9h-35.8c-14.9 0-26.9-12-26.9-26.9V73.3c0-14.9 
+    12-26.9 26.9-26.9h35.8c14.9 0 26.9 12 
+    26.9 26.9v35.8z"/>
+  </svg>
+</a>
+<a href="#" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="20" height="20" fill="currentColor">
+    <path d="M244 8L0 256l244 248 244-248L244 8zm0 
+    144c55.2 0 100 44.8 100 100s-44.8 100-100 
+    100-100-44.8-100-100 44.8-100 100-100zm0 
+    356c-71.6 0-136.5-34.9-176-88.6 16.4-53.5 
+    66.2-91.4 124-91.4h104c57.8 0 107.6 
+    37.9 124 91.4C380.5 473.1 315.6 508 244 508z"/>
+  </svg>
+</a>
+<a href="https://www.researchgate.net/profile/Gregory-Santangeli" aria-label="ResearchGate" title="ResearchGate" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M248 8C111 8 0 119.3 0 256s111 248 248 
+    248 248-111.3 248-248S385 8 248 
+    8zm91.8 345.4h-47.4l-47.6-74.2h-33.2v74.2h-42V158.6h93.5c43.1 
+    0 77.9 34.8 77.9 77.9 0 31.1-18.2 
+    58-44.9 70.9l43.7 66zm-62-185.1h-60.2v54.9h60.2c15.2 
+    0 27.5-12.3 27.5-27.5s-12.3-27.4-27.5-27.4z"/>
+  </svg>
+</a>
+<a href="https://www.linkedin.com/in/gregory-santangeli/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M100.28 448H7.4V148.9h92.88zm-46.44-340c-29.5 
+    0-53.5-24-53.5-53.5S24.34 1 53.84 
+    1s53.5 24 53.5 53.5-24 53.5-53.5 
+    53.5zM447.9 448h-92.4V302.4c0-34.7-12.4-58.3-43.4-58.3-23.7 
+    0-37.8 15.9-44 31.3-2.3 5.6-2.9 
+    13.4-2.9 21.3V448h-92.5s1.2-270.4 
+    0-297.1h92.5v42.1c12.3-19 34.4-46.2 
+    83.7-46.2 61.1 0 107.1 39.9 107.1 
+    125.5V448z"/>
+  </svg>
+</a>
+<a href="https://github.com/gregsantangeli" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 
+    3.6-2.9.3-5.2-1.3-5.2-3.6s2.3-3.6 
+    5.2-3.6c2.9-.3 5.2 1.3 5.2 3.6zm-31.1-4.5c-.7 
+    2-3.6 2.9-6.2 2-2.9-.7-4.5-2.9-3.9-4.9.7-2 
+    3.6-2.9 6.2-2 2.9.7 4.5 2.9 3.9 
+    4.9zm44.2-1.7c-2.9.7-5.9-.7-6.5-3.3-.7-2.6 
+    1.3-5.2 4.2-5.9 2.9-.7 5.9.7 6.5 
+    3.3.7 2.6-1.3 5.2-4.2 5.9zM244 
+    8C108 8 0 116.6 0 256c0 110.9 69.8 
+    205.2 167 238.7 12.3 2.3 16.8-5.2 
+    16.8-11.6 0-5.9-.3-25.3-.3-48.1-61 
+    13.2-74-26.2-74-26.2-11.3-28.8-27.4-36.5-27.4-36.5-22.6-15.2 
+    1.6-14.9 1.6-14.9 25.2 1.6 38.5 
+    25.9 38.5 25.9 22.3 38.5 58.5 
+    27.4 72.7 20.8 2.3-16.2 8.7-27.4 
+    15.9-33.6-54.5-6.2-111.9-27.4-111.9-119 
+    0-26.2 9.4-47.5 25.2-64.4-2.6-6.2-11-31.6 
+    2.6-65.8 0 0 20.8-6.5 67.8 
+    24.7 19.8-5.5 41.2-7.8 62.6-7.8 21.4 
+    0 42.8 2.9 62.6 7.8 47-31.3 67.8-24.7 
+    67.8-24.7 13.6 34.2 5.2 59.6 
+    2.6 65.8 15.9 16.9 25.5 38.2 25.5 
+    64.4 0 91.9-57.7 112.7-112.5 
+    118.7 9 7.8 17 22.6 17 
+    45.5 0 33-.3 59.5-.3 67.8 0 
+    6.5 4.5 13.9 17.1 11.6C426.2 461.2 
+    496 366.9 496 256 496 116.6 384 
+    8 244 8z"/>
+  </svg>
+</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav background on scroll
+    const nav = document.getElementById('nav');
+    const onScroll = () => {
+      if (window.scrollY > 12) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Simple hero crossfade
+    const slides = Array.from(document.querySelectorAll('#heroMedia img'));
+    let idx = 0;
+    function rotate() {
+      const current = slides[idx];
+      idx = (idx + 1) % slides.length;
+      const next = slides[idx];
+      current.classList.remove('active');
+      next.classList.add('active');
+    }
+    // Only rotate if there is more than one image
+    if (slides.length > 1) setInterval(rotate, 12000);
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

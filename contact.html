@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me — Greg Santangeli</title>
+  <meta name="description" content="About Greg Santangeli — Researcher and photographer based in Montréal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d0e;
+      --fg: #e8eaec;
+      --muted: #a9afb8;
+      --accent: #9ad3ff;
+      --card: #121316;
+      --border: #22242a;
+      --maxw: 1100px;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; border-radius: 12px; }
+
+    /* Reuse nav + footer styles from index */
+    .nav { position: fixed; inset: 0 0 auto 0; height: 72px; display: flex; align-items: center; justify-content: center; z-index: 50; transition: background 300ms ease, box-shadow 300ms ease; background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0)); }
+    .nav.scrolled { background: rgba(10,11,13,.9); box-shadow: 0 10px 30px rgba(0,0,0,.25); backdrop-filter: blur(6px); }
+    .nav-inner { width: 100%; max-width: var(--maxw); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand .mark { width: 34px; height: 34px; display:flex; align-items:center; justify-content:center; background:none; }
+    .menu { display:flex; gap:24px; align-items:center; }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:rgba(21,25,34,.6); color:#dfe6ee; border:1px solid #273041; font-weight:600; }
+
+    main { padding: 120px 20px 60px; max-width: var(--maxw); margin: 0 auto; }
+    h1 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(32px, 4vw, 52px); margin: 0 0 40px; text-align: center; }
+    .section { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 40px; 
+  align-items: stretch;         /* both columns get the same row height */
+  margin-bottom: 80px; 
+}
+
+/* Vertically center the paragraph so it looks balanced next to the image */
+.section p { 
+  font-size: 18px; 
+  color: #cdd5df; 
+  display: flex; 
+  align-items: center; 
+  margin: 0; 
+}
+
+/* Image fills the row height (same as the text column), but won’t exceed the cap */
+.section img { 
+  width: 100%; 
+  height: 100%;                 /* match the text column height */
+  max-height: 520px;            /* prevent the image getting too tall on long text */
+  object-fit: cover; 
+  object-position: center;      /* adjust e.g., center 15% if you need to bias the crop */
+  border-radius: 12px; 
+  border: 1px solid var(--border); 
+}
+
+   .section.alt { grid-template-columns: 1fr 1fr; }
+
+    @media (max-width: 800px) {
+    .section, .section.alt { grid-template-columns: 1fr; text-align: center; }
+    .section img { margin:0 auto; height:auto; }
+    }
+
+    .links { text-align:center; margin-top:60px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .links .btn { background:linear-gradient(180deg,#1f2b3f,#0f1725); border-color:#31425f; }
+
+    footer { border-top:1px solid var(--border); padding:36px 20px; color:var(--muted); }
+    .foot { max-width: var(--maxw); margin:0 auto; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .social { display:flex; gap:16px; }
+    .social a svg { width:20px; height:20px; fill:currentColor; }
+    
+    /* Stack name + tagline */
+  .brand .text { display: flex; flex-direction: column; line-height: 1.2; }
+  .brand .text small { display: block; font-size: 11px; color: var(--muted); letter-spacing: .2px; margin-top: -2px; }
+
+    .contact-container {
+      max-width: 700px;
+      margin: 100px auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #cdd5df;
+      margin-bottom: 2rem;
+    }
+
+    .email-link {
+      display: inline-block;
+      font-size: 1.2rem;
+      color: #0056b3;
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+    }
+
+    .email-link:hover {
+      text-decoration: underline;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    input, textarea {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #0056b3;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    button {
+      background-color: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #003f87;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+<header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <span class="mark"><img src="website/icon.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;" /></span>
+        <span class="text">Greg Santangeli<small>Photography • Research</small></span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="/about.html">About</a>
+        <a href="/research.html">Research</a>
+        <a href="/photography.html">Photography</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+</header>
+  
+<body>
+  <div class="contact-container">
+    <h1>Contact</h1>
+    <p>If you’d like to get in touch, feel free to reach out directly or send a message below.</p>
+
+    <a class="email-link" href="mailto:gregory.santangeli@mail.mcgill.ca">gregory.santangeli@mail.mcgill.ca</a>
+
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="_replyto" placeholder="Your email" required>
+      <textarea name="message" placeholder="Your message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</body>  
+
+<!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div>
+        <div style="font-weight:700">© <span id="year"></span> Greg Santangeli</div>
+        <div>Montréal • Québec</div>
+      </div>
+      <nav class="social" aria-label="Social">
+<a href="https://www.instagram.com/gregsantangeli/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9 114.9-51.3 
+    114.9-114.9S287.7 141 224.1 141zm146.4-141H77.5C34.7 0 0 34.7 
+    0 77.5v293C0 477.3 34.7 512 77.5 512h293c42.8 0 
+    77.5-34.7 77.5-77.5v-293C448 34.7 413.3 0 
+    370.5 0zm-35.4 109.1c0 14.9-12 
+    26.9-26.9 26.9h-35.8c-14.9 0-26.9-12-26.9-26.9V73.3c0-14.9 
+    12-26.9 26.9-26.9h35.8c14.9 0 26.9 12 
+    26.9 26.9v35.8z"/>
+  </svg>
+</a>
+<a href="#" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="20" height="20" fill="currentColor">
+    <path d="M244 8L0 256l244 248 244-248L244 8zm0 
+    144c55.2 0 100 44.8 100 100s-44.8 100-100 
+    100-100-44.8-100-100 44.8-100 100-100zm0 
+    356c-71.6 0-136.5-34.9-176-88.6 16.4-53.5 
+    66.2-91.4 124-91.4h104c57.8 0 107.6 
+    37.9 124 91.4C380.5 473.1 315.6 508 244 508z"/>
+  </svg>
+</a>
+<a href="https://www.researchgate.net/profile/Gregory-Santangeli" aria-label="ResearchGate" title="ResearchGate" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M248 8C111 8 0 119.3 0 256s111 248 248 
+    248 248-111.3 248-248S385 8 248 
+    8zm91.8 345.4h-47.4l-47.6-74.2h-33.2v74.2h-42V158.6h93.5c43.1 
+    0 77.9 34.8 77.9 77.9 0 31.1-18.2 
+    58-44.9 70.9l43.7 66zm-62-185.1h-60.2v54.9h60.2c15.2 
+    0 27.5-12.3 27.5-27.5s-12.3-27.4-27.5-27.4z"/>
+  </svg>
+</a>
+<a href="https://www.linkedin.com/in/gregory-santangeli/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor">
+    <path d="M100.28 448H7.4V148.9h92.88zm-46.44-340c-29.5 
+    0-53.5-24-53.5-53.5S24.34 1 53.84 
+    1s53.5 24 53.5 53.5-24 53.5-53.5 
+    53.5zM447.9 448h-92.4V302.4c0-34.7-12.4-58.3-43.4-58.3-23.7 
+    0-37.8 15.9-44 31.3-2.3 5.6-2.9 
+    13.4-2.9 21.3V448h-92.5s1.2-270.4 
+    0-297.1h92.5v42.1c12.3-19 34.4-46.2 
+    83.7-46.2 61.1 0 107.1 39.9 107.1 
+    125.5V448z"/>
+  </svg>
+</a>
+<a href="https://github.com/gregsantangeli" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="20" height="20" fill="currentColor">
+    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 
+    3.6-2.9.3-5.2-1.3-5.2-3.6s2.3-3.6 
+    5.2-3.6c2.9-.3 5.2 1.3 5.2 3.6zm-31.1-4.5c-.7 
+    2-3.6 2.9-6.2 2-2.9-.7-4.5-2.9-3.9-4.9.7-2 
+    3.6-2.9 6.2-2 2.9.7 4.5 2.9 3.9 
+    4.9zm44.2-1.7c-2.9.7-5.9-.7-6.5-3.3-.7-2.6 
+    1.3-5.2 4.2-5.9 2.9-.7 5.9.7 6.5 
+    3.3.7 2.6-1.3 5.2-4.2 5.9zM244 
+    8C108 8 0 116.6 0 256c0 110.9 69.8 
+    205.2 167 238.7 12.3 2.3 16.8-5.2 
+    16.8-11.6 0-5.9-.3-25.3-.3-48.1-61 
+    13.2-74-26.2-74-26.2-11.3-28.8-27.4-36.5-27.4-36.5-22.6-15.2 
+    1.6-14.9 1.6-14.9 25.2 1.6 38.5 
+    25.9 38.5 25.9 22.3 38.5 58.5 
+    27.4 72.7 20.8 2.3-16.2 8.7-27.4 
+    15.9-33.6-54.5-6.2-111.9-27.4-111.9-119 
+    0-26.2 9.4-47.5 25.2-64.4-2.6-6.2-11-31.6 
+    2.6-65.8 0 0 20.8-6.5 67.8 
+    24.7 19.8-5.5 41.2-7.8 62.6-7.8 21.4 
+    0 42.8 2.9 62.6 7.8 47-31.3 67.8-24.7 
+    67.8-24.7 13.6 34.2 5.2 59.6 
+    2.6 65.8 15.9 16.9 25.5 38.2 25.5 
+    64.4 0 91.9-57.7 112.7-112.5 
+    118.7 9 7.8 17 22.6 17 
+    45.5 0 33-.3 59.5-.3 67.8 0 
+    6.5 4.5 13.9 17.1 11.6C426.2 461.2 
+    496 366.9 496 256 496 116.6 384 
+    8 244 8z"/>
+  </svg>
+</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => { if (window.scrollY > 12) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

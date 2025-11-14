@@ -143,6 +143,118 @@
 @media (max-width: 700px)  { .gallery { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 420px)  { .gallery { grid-template-columns: 1fr; } }
 
+ .photography-hero {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  color: #000;
+  background:
+    url("website/wildlife/Snowy_Bluejay.jpg") center/cover no-repeat;
+}
+
+.photography-title {
+  color: #000;
+}
+.photography-subtitle {
+  color: #000;
+  opacity: 1;        /* remove fading so black stays strong */
+
+  }
+
+  .category-section {
+    padding: 3rem 5vw 5rem;
+    background:
+    url("website//.jpg") center/cover no-repeat;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    min-height: 260px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    transform-origin: center;
+    transition:
+      transform 0.5s ease,
+      box-shadow 0.5s ease,
+      filter 0.5s ease;
+  }
+
+  .category-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.7s ease;
+    z-index: 0;
+  }
+
+  .category-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.65));
+    z-index: 1;
+    transition: background 0.5s ease;
+  }
+
+  .category-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .category-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+  }
+
+  .category-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.6);
+  }
+
+  .category-card:hover::before {
+    transform: scale(1.08);
+  }
+
+  .category-card:hover::after {
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.75));
+  }
+
+  .category-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media (max-width: 900px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
   </style>
   
 </head>
@@ -155,46 +267,70 @@
         <span class="text">Greg Santangeli<small>Photography • Research</small></span>
       </a>
       <nav class="menu" aria-label="Primary">
-        <a href="/about.html">About</a>
-        <a href="/research.html">Research</a>
-        <a href="/photography.html">Photography</a>
-        <a href="/contact.html">Contact</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Research</a>
+        <a href="photography.html">Photography</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
-  
+
   <main>
-    <h1>Wildlife</h1>
-    <div class="gallery" id="astroGallery">
-  <a class="tile" href="website/astro/greg_cocoon_final.jpg">
-    <img src="website/astro/greg_cocoon_final.jpg" alt="Cocoon Nebula">
-  </a>
+  <!-- Hero / Title -->
+  <section class="photography-hero">
+    <h1 class="photography-title">Photography</h1>
+    <p class="photography-subtitle">
+      Explore curated collections from the field, ocean, and sky.
+    </p>
+  </section>
 
-  <a class="tile" href="website/astro/7331_final.jpg">
-    <img src="website/astro/7331_final.jpg" alt="NGC 7331">
-  </a>
+  <!-- Category tiles -->
+  <section class="category-section">
+    <div class="category-grid">
 
-  <a class="tile" href="website/astro/ngc_2164_final.jpg">
-    <img src="website/astro/ngc_2164_final.jpg" alt="NGC 2164">
-  </a>
+      <!-- Wildlife -->
+      <a href="wildlife.html" class="category-link">
+        <article class="category-card"
+          style='--bg-image: url("website/wildlife/heron_fluff.jpg");'>
+          <div class="category-content">
+            <h2 class="category-title">Wildlife</h2>
+          </div>
+        </article>
+      </a>
 
-  <a class="tile" href="website/astro/SA_lighthouse_ST.jpg">
-    <img src="website/astro/SA_lighthouse_ST.jpg" alt="Lighthouse star trails">
-  </a>
+      <!-- Landscape -->
+      <a href="landscape.html" class="category-link">
+        <article class="category-card"
+          style='--bg-image: url("website/landscape/embrace.jpg");'>
+          <div class="category-content">
+            <h2 class="category-title">Landscape</h2>
+          </div>
+        </article>
+      </a>
 
-  <a class="tile" href="website/astro/SA_lighthouse_WD.jpg">
-    <img src="website/astro/SA_lighthouse_WD.jpg" alt="Lighthouse wide view">
-  </a>
+      <!-- Astro -->
+      <a href="astro.html" class="category-link">
+        <article class="category-card"
+          style='--bg-image: url("website/astro/oct132025_lunar.jpg");'>
+          <div class="category-content">
+            <h2 class="category-title">Astro</h2>
+          </div>
+        </article>
+      </a>
 
-  <a class="tile" href="website/astro/m42_1_ss.jpg">
-    <img src="website/astro/m42_1_ss.jpg" alt="M42 Orion Nebula">
-  </a>
-  
-  <a class="tile" href="website/astro/oct132025_lunar.jpg">
-    <img src="website/astro/oct132025_lunar.jpg" alt="Waning Gibbous Moon">
-  </a>
+      <!-- Underwater -->
+      <a href="underwater.html" class="category-link">
+        <article class="category-card"
+          style='--bg-image: url("website/aquatic/closeup_anem_green.jpg");'>
+          <div class="category-content">
+            <h2 class="category-title">Underwater</h2>
+          </div>
+        </article>
+      </a>
+
     </div>
-  </main>
+  </section>
+</main>
   
    <!-- FOOTER -->
   <footer>
@@ -292,6 +428,18 @@
     onScroll();
 
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Apply background images from inline CSS variable so we can keep
+  // the styling unified.
+  document.querySelectorAll(".category-card").forEach(card => {
+    const style = card.getAttribute("style");
+    const match = style && style.match(/url\((.*)\)/);
+    if (match) {
+      card.style.backgroundImage = match[0];
+      card.style.backgroundSize = "cover";
+      card.style.backgroundPosition = "center";
+    }
+  });
   </script>
 </body>
 </html>
